@@ -104,12 +104,7 @@ function sendResponse(req: any, res: any, redirectToId: any) {
     }
     res.set('X-Location', JSON.stringify(location));
     renderReactTree(res, {
-        location: {
-            selectedId: location.selectedId,
-            isEditing: location.isEditing,
-            searchText: location.searchText,
-            showStatistics: location.showStatistics,
-        },
+        location,
     });
 }
 

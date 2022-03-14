@@ -5,6 +5,7 @@ export interface ILocation {
     isEditing: boolean;
     searchText: string;
     showStatistics: boolean;
+    filterFavorites: boolean;
 }
 
 export type LocationCache = Map<string, Response>;

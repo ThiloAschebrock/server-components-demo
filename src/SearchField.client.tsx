@@ -36,7 +36,8 @@ const SearchField: React.FC = () => {
                                 selectedId: loc.selectedId,
                                 isEditing: loc.isEditing,
                                 searchText: newText,
-                                showStatistics: loc.showStatistics
+                                showStatistics: loc.showStatistics,
+                                filterFavorites: loc.filterFavorites,
                             }));
                     });
                 }}

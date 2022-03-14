@@ -2,7 +2,7 @@ import {useLocation} from './LocationContext.client';
 import {useTransition} from 'react';
 
 const ShowStatisticsButton: React.FC = () => {
-    const {location, setLocation} = useLocation();
+    const {setLocation} = useLocation();
     const [isPending, startTransition] = useTransition();
 
     return (
@@ -17,7 +17,8 @@ const ShowStatisticsButton: React.FC = () => {
                             selectedId: null,
                             isEditing: loc.isEditing,
                             searchText: loc.searchText,
-                            showStatistics: !location.showStatistics,
+                            showStatistics: !loc.showStatistics,
+                            filterFavorites: loc.filterFavorites,
                         }));
                 });
             }}>

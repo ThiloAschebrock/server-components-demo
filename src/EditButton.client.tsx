@@ -33,6 +33,7 @@ const EditButton: React.FC<EditButtonProps> = ({noteId, children}) => {
                             isEditing: true,
                             searchText: loc.searchText,
                             showStatistics: loc.showStatistics,
+                            filterFavorites: loc.filterFavorites,
                         }));
                 });
             }}

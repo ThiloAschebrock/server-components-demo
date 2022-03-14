@@ -15,6 +15,7 @@ import React, {
 } from 'react';
 
 import {useLocation} from './LocationContext.client';
+import {useMutation, useNavigation} from './util';
 
 interface SidebarNoteProps {
     id: number;
@@ -31,11 +32,15 @@ const SidebarNote: React.FC<SidebarNoteProps> = ({
     expandedChildren,
 }) => {
     const isNavigating = false;
-    const isSaving = false;
 
     const {location, setLocation} = useLocation();
     const [isPending, startTransition] = useTransition();
+    const {navigate} = useNavigation();
     const [isExpanded, setIsExpanded] = useState(false);
+    const {isSaving, performMutation: saveNote} = useMutation({
+        endpoint: `/notes/${id}`,
+        method: 'PUT',
+    });
     const isActive = id === location.selectedId;
 
     // Animate after title is edited.
@@ -48,14 +53,13 @@ const SidebarNote: React.FC<SidebarNoteProps> = ({
         }
     }, [title]);
 
-    function toggleFavorite() {
-        // 🖌 TODO: Okay, this is the onClick handler of the favorite-toggle-button, which we need to implement
-        // This means, we have to store information from the client back on the server now. Another place where we have
-        // similar functionality can be found in the NoteEditor.client.tsx who also manipulates the note on the server.
-        // ℹ️ Interesting hooks are useNavigation and useMutation.
-        // ℹ️ You do not need to change the endpoint in api.server.ts, this is already implemented.
-        // 🖌 TODO: After implementing the function, toggling the favorite icon should work. Next, we want to implement the filter functionality
-        // But first, let's jump into LocationContext.client.ts
+    async function toggleFavorite() {
+        const response = await saveNote({favorite: !favorite}, location);
+        if (!response) {
+            throw new Error(`Something went wrong when toggling note ${id}`);
+        }
+
+        navigate(response);
     }
 
     return (

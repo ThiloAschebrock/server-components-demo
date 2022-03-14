@@ -9,9 +9,6 @@
 import {createContext, Dispatch, SetStateAction, useContext} from 'react';
 import {ILocation} from './types';
 
-// 🖌 TODO: we have to store the fact if we are currently filtering the list in our context.
-// Add a new boolean field filterFavorites to the context and fix all compile errors. Start with adapting the type definition in types.ts
-// 🖌 TODO: afterwards, let's implement the filter functionality. To do that, let's go to FilterButton.tsx
 export const LocationContext = createContext<{
     location: ILocation;
     setLocation?: Dispatch<SetStateAction<ILocation>>;
@@ -21,6 +18,7 @@ export const LocationContext = createContext<{
         isEditing: false,
         searchText: '',
         showStatistics: false,
+        filterFavorites: false,
     },
 });
 export function useLocation() {
